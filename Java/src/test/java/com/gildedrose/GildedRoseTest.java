@@ -27,7 +27,7 @@ class GildedRoseTest {
        };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        boolean qualityChecker = items[0].sellIn == 18;
+        assertEquals(28, items[0].quality);
     }
 
 
