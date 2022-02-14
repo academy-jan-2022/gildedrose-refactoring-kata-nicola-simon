@@ -86,5 +86,19 @@ class GildedRoseTest {
         assertEquals(32, items[0].quality);
     }
 
+    @Test void
+    should_not_add_to_quality_when_quality_is_50(){
+        Item[] items = new Item[]{
+            new Item(
+                "Aged Brie",
+                0,
+                50
+            )
+        };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, items[0].quality);
+    }
+
 
 }
