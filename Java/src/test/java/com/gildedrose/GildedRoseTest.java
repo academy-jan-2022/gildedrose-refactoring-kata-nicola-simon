@@ -30,6 +30,20 @@ class GildedRoseTest {
         assertEquals(28, items[0].quality);
     }
 
+    @Test void
+    should_increase_quality_x2_given_backstage_pass_with_less_than_10_days_to_sell(){
+        Item[] items = new Item[]{
+            new Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                10,
+                30
+            )
+        };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(32, items[0].quality);
+    }
+
 
 
 }
