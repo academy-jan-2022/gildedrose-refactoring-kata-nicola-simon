@@ -31,7 +31,7 @@ class GildedRoseTest {
     }
 
     @Test void
-    should_increase_quality_x2_given_backstage_pass_with_less_than_10_days_to_sell(){
+    should_increase_quality_x2_given_backstage_pass_with_less_than_11_days_to_sell(){
         Item[] items = new Item[]{
             new Item(
                 "Backstage passes to a TAFKAL80ETC concert",
@@ -42,6 +42,20 @@ class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(32, items[0].quality);
+    }
+
+    @Test void
+    should_increase_quality_x3_given_backstage_pass_with_less_than_6_days_to_sell(){
+        Item[] items = new Item[]{
+            new Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                5,
+                30
+            )
+        };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(33, items[0].quality);
     }
 
 
