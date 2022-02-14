@@ -72,5 +72,19 @@ class GildedRoseTest {
         assertEquals(0, items[0].quality);
     }
 
+    @Test void
+    should_add_to_quality_when_aged_brie_beyond_sell_by_date(){
+        Item[] items = new Item[]{
+            new Item(
+                "Aged Brie",
+                0,
+                30
+            )
+        };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(32, items[0].quality);
+    }
+
 
 }
