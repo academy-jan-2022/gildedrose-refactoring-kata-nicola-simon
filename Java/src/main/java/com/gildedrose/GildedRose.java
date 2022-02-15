@@ -30,6 +30,8 @@ class GildedRose {
 
             if (isConjured(item)) {
                 item.quality = updateNormalItemQuality(item);
+                item.quality = updateNormalItemQuality(item);
+                continue;
             }
 
             item.quality =updateNormalItemQuality(item);
