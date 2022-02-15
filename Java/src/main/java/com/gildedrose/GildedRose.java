@@ -24,7 +24,7 @@ class GildedRose {
             }
 
             if (isBackstagePass(item)) {
-                updateBackstagePassQuality(item);
+                item.quality = updateBackstagePassQuality(item);
                 continue;
             }
 
@@ -60,20 +60,21 @@ class GildedRose {
         }
     }
 
-    private void updateBackstagePassQuality(Item item) {
-        item.quality = addQuality(item.quality);
+    private int updateBackstagePassQuality(Item item) {
+        int newQuality= addQuality(item.quality);
 
         if (item.sellIn <= 10) {
-            item.quality = addQuality(item.quality);
+            newQuality = addQuality(newQuality);
         }
 
         if (item.sellIn <= 5) {
-            item.quality = addQuality(item.quality);
+            newQuality = addQuality(newQuality);
         }
 
         if (item.sellIn < 0) {
-            item.quality = MIN_QUALITY;
+            newQuality = MIN_QUALITY;
         }
+        return newQuality;
     }
 
     private int updateNormalItemQuality(Item item) {
