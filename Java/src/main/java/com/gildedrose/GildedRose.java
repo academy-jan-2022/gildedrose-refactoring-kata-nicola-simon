@@ -42,10 +42,9 @@ class GildedRose {
         return new NewItemStats(item.sellIn, updateNormalItemQuality(item));
     }
 
-    private class NewItemStats {
-
-        private int sellIn;
-        private int quality;
+    private static class NewItemStats {
+        private final int sellIn;
+        private final int quality;
 
         public NewItemStats(int sellIn, int quality) {
             this.sellIn = sellIn;
