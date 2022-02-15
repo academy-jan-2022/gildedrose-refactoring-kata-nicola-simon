@@ -22,6 +22,7 @@ class GildedRose {
             return new NewItemStats(item.sellIn, item.quality);
         }
 
+        // TODO, still mutating input
         item.sellIn--;
 
         if (isAgedBrie(item)) {
@@ -33,13 +34,10 @@ class GildedRose {
         }
 
         if (isConjured(item)) {
-            // TODO, still mutating input
-            item.quality = updateNormalItemQuality(item);
-            item.quality = updateNormalItemQuality(item);
-            return new NewItemStats(item.sellIn, item.quality);
+            return new NewItemStats(item.sellIn, updateNormalItemQuality(item.sellIn, item.quality, 2));
         }
 
-        return new NewItemStats(item.sellIn, updateNormalItemQuality(item));
+        return new NewItemStats(item.sellIn, updateNormalItemQuality(item.sellIn, item.quality, 1));
     }
 
     private static class NewItemStats {
@@ -98,12 +96,21 @@ class GildedRose {
     }
 
     private int updateNormalItemQuality(Item item) {
-
         if (item.sellIn < 0) {
             return reduceQuality(reduceQuality(item.quality));
         }
-        return   reduceQuality(item.quality);
+        return reduceQuality(item.quality);
+    }
 
+    private int updateNormalItemQuality(int sellIn, int quality, int times) {
+        int newQuality = reduceQuality(quality);
+        if (sellIn < 0) {
+            newQuality = reduceQuality(newQuality);
+        }
+        if (times > 1)
+            return updateNormalItemQuality(sellIn, newQuality, times - 1);
+
+        return newQuality;
     }
 
     private int reduceQuality(int quality) {
