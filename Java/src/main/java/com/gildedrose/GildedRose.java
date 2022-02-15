@@ -10,6 +10,7 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
 
+
             if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 continue;
             }
@@ -17,35 +18,49 @@ class GildedRose {
             item.sellIn--;
 
             if (item.name.equals("Aged Brie")) {
-                item.quality = addQuality(item.quality);
-
-                if ( item.sellIn < 0) {
-                    item.quality = addQuality(item.quality);
-                }
+                updateAgedBrieQuality(item);
             }
 
             else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                item.quality = addQuality(item.quality);
-
-                if (item.sellIn < 11) {
-                      item.quality = addQuality(item.quality);
-                }
-
-                if (item.sellIn < 6) {
-                      item.quality = addQuality(item.quality);
-                }
-
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                }
-
+                updateBackstagePassQuality(item);
             }
+
             else {
-                item.quality = reduceQuality(item.quality);
-                if (item.sellIn < 0) {
-                    item.quality = reduceQuality(item.quality);
-                }
+                updateNormalItemQuality(item);
             }
+
+        }
+    }
+
+    private void updateAgedBrieQuality(Item item) {
+        item.quality = addQuality(item.quality);
+
+        if ( item.sellIn < 0) {
+            item.quality = addQuality(item.quality);
+        }
+    }
+
+    private void updateBackstagePassQuality(Item item) {
+        item.quality = addQuality(item.quality);
+
+        if (item.sellIn < 11) {
+              item.quality = addQuality(item.quality);
+        }
+
+        if (item.sellIn < 6) {
+              item.quality = addQuality(item.quality);
+        }
+
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    private void updateNormalItemQuality(Item item) {
+        item.quality = reduceQuality(item.quality);
+
+        if (item.sellIn < 0) {
+            item.quality = reduceQuality(item.quality);
 
         }
     }
