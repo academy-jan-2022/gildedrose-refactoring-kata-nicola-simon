@@ -61,6 +61,10 @@ class GildedRose {
     }
 
     private int updateBackstagePassQuality(Item item) {
+        if (item.sellIn < 0) {
+            return MIN_QUALITY;
+        }
+
         int newQuality= addQuality(item.quality);
 
         if (item.sellIn <= 10) {
@@ -71,9 +75,7 @@ class GildedRose {
             newQuality = addQuality(newQuality);
         }
 
-        if (item.sellIn < 0) {
-            newQuality = MIN_QUALITY;
-        }
+
         return newQuality;
     }
 
