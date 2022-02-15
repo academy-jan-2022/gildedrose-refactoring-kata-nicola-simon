@@ -1,6 +1,8 @@
 package com.gildedrose;
 
 class GildedRose {
+    private final int MAX_QUALITY = 50;
+    private final int MIN_QUALITY = 0;
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -9,7 +11,6 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-
 
             if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 continue;
@@ -27,6 +28,10 @@ class GildedRose {
                 continue;
             }
 
+            if (item.name.contains("Conjured")) {
+                updateNormalItemQuality(item);
+            }
+
             updateNormalItemQuality(item);
         }
     }
@@ -42,16 +47,16 @@ class GildedRose {
     private void updateBackstagePassQuality(Item item) {
         item.quality = addQuality(item.quality);
 
-        if (item.sellIn < 11) {
+        if (item.sellIn <= 10) {
             item.quality = addQuality(item.quality);
         }
 
-        if (item.sellIn < 6) {
+        if (item.sellIn <= 5) {
             item.quality = addQuality(item.quality);
         }
 
         if (item.sellIn < 0) {
-            item.quality = 0;
+            item.quality = MIN_QUALITY;
         }
     }
 
@@ -64,10 +69,11 @@ class GildedRose {
     }
 
     private int reduceQuality(int quality) {
-        return quality > 0 ? quality-1: quality;
+        return quality > MIN_QUALITY ? quality-1: quality;
     }
 
     private int addQuality(int quality) {
-        return quality < 50 ? quality + 1: quality;
+        return quality < MAX_QUALITY ? quality + 1: quality;
     }
+
 }
