@@ -11,30 +11,53 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            NewItemStats newStats = getNewStats(item);
+            item.sellIn = newStats.getSellIn();
+            item.quality = newStats.getQuality();
+        }
+    }
 
-            if (isSulfuras(item)) {
-                continue;
-            }
+    private NewItemStats getNewStats(Item item) {
+        if (isSulfuras(item)) {
+            return new NewItemStats(item.sellIn, item.quality);
+        }
 
-            item.sellIn--;
+        item.sellIn--;
 
-            if (isAgedBrie(item)) {
-                item.quality = updateAgedBrieQuality(item);
-                continue;
-            }
+        if (isAgedBrie(item)) {
+            return new NewItemStats(item.sellIn, updateAgedBrieQuality(item));
+        }
 
-            if (isBackstagePass(item)) {
-                item.quality = updateBackstagePassQuality(item);
-                continue;
-            }
+        if (isBackstagePass(item)) {
+            return new NewItemStats(item.sellIn, updateBackstagePassQuality(item));
+        }
 
-            if (isConjured(item)) {
-                item.quality = updateNormalItemQuality(item);
-                item.quality = updateNormalItemQuality(item);
-                continue;
-            }
+        if (isConjured(item)) {
+            // TODO, still mutating input
+            item.quality = updateNormalItemQuality(item);
+            item.quality = updateNormalItemQuality(item);
+            return new NewItemStats(item.sellIn, item.quality);
+        }
 
-            item.quality =updateNormalItemQuality(item);
+        return new NewItemStats(item.sellIn, updateNormalItemQuality(item));
+    }
+
+    private class NewItemStats {
+
+        private int sellIn;
+        private int quality;
+
+        public NewItemStats(int sellIn, int quality) {
+            this.sellIn = sellIn;
+            this.quality = quality;
+        }
+
+        public int getQuality() {
+            return quality;
+        }
+
+        public int getSellIn() {
+            return sellIn;
         }
     }
 
