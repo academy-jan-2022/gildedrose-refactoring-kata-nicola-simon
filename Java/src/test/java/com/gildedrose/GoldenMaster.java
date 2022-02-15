@@ -49,11 +49,11 @@ public class GoldenMaster {
         int days = 2;
 
         for (int i = 0; i< days; i++){
-            output.append("-------- day " + i + " --------\n");
+            output.append("-------- day ").append(i).append(" --------\n");
             output.append("name, sellIn, quality\n");
             for (Item item :
                 items) {
-                output.append(item+"\n");
+                output.append(item).append("\n");
             }
             app.updateQuality();
         }
