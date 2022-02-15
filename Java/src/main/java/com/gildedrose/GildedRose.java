@@ -70,10 +70,7 @@ class GildedRose {
         if (item.sellIn <= 10) {
             return addQuality(addQuality(item.quality));
         }
-
-
-        int newQuality= addQuality(item.quality);
-        return newQuality;
+        return addQuality(item.quality);
     }
 
     private int updateNormalItemQuality(Item item) {
