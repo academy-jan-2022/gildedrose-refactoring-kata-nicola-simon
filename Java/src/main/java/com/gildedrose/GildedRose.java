@@ -53,13 +53,11 @@ class GildedRose {
     }
 
     private int updateAgedBrieQuality(Item item) {
-        int newQuality = addQuality(item.quality);
-
         if ( item.sellIn < 0) {
-            newQuality = addQuality(newQuality);
+            return addQuality(addQuality(item.quality));
         }
 
-        return newQuality;
+        return addQuality(item.quality);
     }
 
     private int updateBackstagePassQuality(Item item) {
