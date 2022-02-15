@@ -64,16 +64,16 @@ class GildedRose {
         if (item.sellIn < 0) {
             return MIN_QUALITY;
         }
-
+        if (item.sellIn <= 5) {
+            return addQuality(addQuality(addQuality(item.quality)));
+        }
         int newQuality= addQuality(item.quality);
 
         if (item.sellIn <= 10) {
             newQuality = addQuality(newQuality);
         }
 
-        if (item.sellIn <= 5) {
-            newQuality = addQuality(newQuality);
-        }
+
 
 
         return newQuality;
