@@ -29,10 +29,10 @@ class GildedRose {
             }
 
             if (isConjured(item)) {
-                updateNormalItemQuality(item);
+                item.quality = updateNormalItemQuality(item);
             }
 
-            updateNormalItemQuality(item);
+            item.quality =updateNormalItemQuality(item);
         }
     }
 
@@ -76,12 +76,13 @@ class GildedRose {
         }
     }
 
-    private void updateNormalItemQuality(Item item) {
-        item.quality = reduceQuality(item.quality);
+    private int updateNormalItemQuality(Item item) {
 
         if (item.sellIn < 0) {
-            item.quality = reduceQuality(item.quality);
+            return reduceQuality(reduceQuality(item.quality));
         }
+        return   reduceQuality(item.quality);
+
     }
 
     private int reduceQuality(int quality) {
