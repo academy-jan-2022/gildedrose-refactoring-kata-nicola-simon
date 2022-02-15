@@ -26,11 +26,11 @@ class GildedRose {
         item.sellIn--;
 
         if (isAgedBrie(item)) {
-            return new NewItemStats(item.sellIn, updateAgedBrieQuality(item));
+            return new NewItemStats(item.sellIn, updateAgedBrieQuality(item.sellIn, item.quality));
         }
 
         if (isBackstagePass(item)) {
-            return new NewItemStats(item.sellIn, updateBackstagePassQuality(item));
+            return new NewItemStats(item.sellIn, updateBackstagePassQuality(item.sellIn, item.quality));
         }
 
         if (isConjured(item)) {
@@ -74,32 +74,25 @@ class GildedRose {
         return item.name.equals("Aged Brie");
     }
 
-    private int updateAgedBrieQuality(Item item) {
-        if ( item.sellIn < 0) {
-            return addQuality(addQuality(item.quality));
+    private int updateAgedBrieQuality(int sellIn, int quality) {
+        if (sellIn < 0) {
+            return addQuality(addQuality(quality));
         }
 
-        return addQuality(item.quality);
+        return addQuality(quality);
     }
 
-    private int updateBackstagePassQuality(Item item) {
-        if (item.sellIn < 0) {
+    private int updateBackstagePassQuality(int sellIn, int quality) {
+        if (sellIn < 0) {
             return MIN_QUALITY;
         }
-        if (item.sellIn <= 5) {
-            return addQuality(addQuality(addQuality(item.quality)));
+        if (sellIn <= 5) {
+            return addQuality(addQuality(addQuality(quality)));
         }
-        if (item.sellIn <= 10) {
-            return addQuality(addQuality(item.quality));
+        if (sellIn <= 10) {
+            return addQuality(addQuality(quality));
         }
-        return addQuality(item.quality);
-    }
-
-    private int updateNormalItemQuality(Item item) {
-        if (item.sellIn < 0) {
-            return reduceQuality(reduceQuality(item.quality));
-        }
-        return reduceQuality(item.quality);
+        return addQuality(quality);
     }
 
     private int updateNormalItemQuality(int sellIn, int quality, int times) {
