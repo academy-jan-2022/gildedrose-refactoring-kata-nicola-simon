@@ -19,7 +19,7 @@ class GildedRose {
             item.sellIn--;
 
             if (isAgedBrie(item)) {
-                updateAgedBrieQuality(item);
+                item.quality = updateAgedBrieQuality(item);
                 continue;
             }
 
@@ -52,12 +52,14 @@ class GildedRose {
         return item.name.equals("Aged Brie");
     }
 
-    private void updateAgedBrieQuality(Item item) {
-        item.quality = addQuality(item.quality);
+    private int updateAgedBrieQuality(Item item) {
+        int newQuality = addQuality(item.quality);
 
         if ( item.sellIn < 0) {
-            item.quality = addQuality(item.quality);
+            newQuality = addQuality(newQuality);
         }
+
+        return newQuality;
     }
 
     private int updateBackstagePassQuality(Item item) {
